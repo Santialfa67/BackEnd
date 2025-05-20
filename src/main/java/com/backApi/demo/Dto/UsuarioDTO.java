@@ -9,6 +9,5 @@ public class UsuarioDTO {
     private String email;
     private String telefono;
     private String direccion;
-    private String preferencias;
-    private String rol;
+
 }

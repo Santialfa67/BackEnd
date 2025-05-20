@@ -3,6 +3,7 @@ package com.backApi.demo.Controller;
 import com.backApi.demo.Model.Usuario;
 import com.backApi.demo.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +14,14 @@ import java.util.Optional;
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
+
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        if (usuarioService.existeEmail(usuario.getEmail())) {
-            return ResponseEntity.badRequest().build(); // Email ya registrado
-        }
-        return ResponseEntity.ok(usuarioService.guardarUsuario(usuario));
+    @PostMapping("/registrar")
+    public ResponseEntity<Usuario> registrarUsuario(@RequestBody Usuario usuario) {
+        Usuario nuevo = usuarioService.guardarUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
     // Obtener todos los usuarios
@@ -51,9 +51,7 @@ public class UsuarioController {
         usuario.setEmail(usuarioActualizado.getEmail());
         usuario.setContraseña(usuarioActualizado.getContraseña());
         usuario.setTelefono(usuarioActualizado.getTelefono());
-        usuario.setFechaRegistro(usuarioActualizado.getFechaRegistro());
         usuario.setDireccion(usuarioActualizado.getDireccion());
-        usuario.setPreferencias(usuarioActualizado.getPreferencias());
 
         return ResponseEntity.ok(usuarioService.guardarUsuario(usuario));
     }

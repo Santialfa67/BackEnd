@@ -31,14 +31,6 @@ public class Usuario {
     @Column(length = 10)
     private String telefono;
 
-    @CreationTimestamp
-    @Column(name = "fecha_registro", updatable = false)
-    private LocalDateTime fechaRegistro;
-
     @Column(columnDefinition = "TEXT")
     private String direccion;
-
-    @Column(columnDefinition = "TEXT")
-    private String preferencias;
-
 }
