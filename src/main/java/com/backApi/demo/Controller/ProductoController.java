@@ -7,6 +7,7 @@ import com.backApi.demo.Model.Proveedor;
 import com.backApi.demo.Repository.CategoriaRepository;
 import com.backApi.demo.Repository.ProductoRepository;
 import com.backApi.demo.Repository.ProveedorRepository;
+import com.backApi.demo.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +30,20 @@ public class ProductoController {
     private ProveedorRepository proveedorRepository;
 
     // Obtener todos los productos
-    @GetMapping
+//    @GetMapping
+//    public List<Producto> getAllProductos() {
+//        return productoRepository.findAll();
+//    }
+
+    @Autowired
+    private ProductoService productoService; // O directamente ProductoRepository
+
+    @GetMapping // Esto se mapea a /api/productos
     public List<Producto> getAllProductos() {
-        return productoRepository.findAll();
+        // Si usas ProductoService
+        return productoService.getAllProductos();
+        // Si usas directamente el repositorio (menos común en una app grande)
+        // return productoRepository.findAll();
     }
 
 
